@@ -80,13 +80,15 @@ onBeforeUnmount(() => {
       </div>
 
       <div class="modal__body">
-        <span v-if="categoryLabel" class="modal__category">{{ categoryLabel }}</span>
-        <h2 class="modal__title">{{ product.titulo }}</h2>
+        <div class="modal__head">
+          <span v-if="categoryLabel" class="modal__category">{{ categoryLabel }}</span>
+          <h2 class="modal__title">{{ product.titulo }}</h2>
 
-        <p v-if="product.descricao" class="modal__desc">{{ product.descricao }}</p>
-        <p v-else class="modal__desc modal__desc--empty">
-          Quer saber mais sobre este produto? Fale com a gente pelo WhatsApp.
-        </p>
+          <p v-if="product.descricao" class="modal__desc">{{ product.descricao }}</p>
+          <p v-else class="modal__desc modal__desc--empty">
+            Quer saber mais sobre este produto? Fale com a gente pelo WhatsApp.
+          </p>
+        </div>
 
         <div class="modal__footer">
           <span
@@ -222,25 +224,52 @@ onBeforeUnmount(() => {
   .modal { padding: 0; }
   .modal__content {
     grid-template-columns: 1fr;
+    grid-template-rows: none;
     border-radius: 0;
-    width: 100%; height: 100%;
-    max-height: 100vh;
-    grid-template-rows: auto 1fr;
-    overflow-y: auto;
+    width: 100%; height: 100vh;
+    height: 100dvh;
+    max-height: none;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
   }
-  .modal__media { min-height: 0; height: 70vw; max-height: 60vh; flex-shrink: 0; }
-  .modal__media :deep(.carousel__track) { inset: 16px !important; }
-  .modal__body { padding: 20px 20px 32px; }
   .modal__close {
     top: 12px; right: 12px;
     width: 40px; height: 40px;
     background: rgba(15, 12, 56, .65);
   }
+  /* Order: head (title/desc) → media → footer */
+  .modal__body {
+    display: contents;
+  }
+  .modal__head {
+    order: 1;
+    padding: 64px 20px 12px;
+    flex-shrink: 0;
+  }
+  .modal__media {
+    order: 2;
+    flex: 1 1 auto;
+    min-height: 0;
+    height: auto;
+    max-height: none;
+  }
+  .modal__media :deep(.carousel__track) { inset: 12px !important; }
   .modal__footer {
+    order: 3;
+    flex-shrink: 0;
+    padding: 16px 20px calc(16px + env(safe-area-inset-bottom));
+    margin-top: 0;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    display: flex;
     flex-direction: column;
     align-items: stretch;
+    gap: 10px;
   }
   .modal__footer .btn { text-align: center; }
-  .modal__price { font-size: 1.4rem; }
+  .modal__title { font-size: 1.25rem; margin: 0 0 8px; }
+  .modal__desc { font-size: .9rem; line-height: 1.45; }
+  .modal__price { font-size: 1.4rem; text-align: center; }
 }
 </style>
