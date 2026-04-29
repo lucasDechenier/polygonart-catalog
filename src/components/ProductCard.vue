@@ -210,7 +210,7 @@ const whatsappUrl = computed(() => {
 
 @media (max-width: 480px) {
   .product__body { padding: 12px; min-height: auto; gap: 4px; }
-  .product__name { font-size: .85rem; }
+  .product__name { font-size: .85rem; text-align: center; }
   .product__desc { display: none; }
   .product__footer {
     flex-direction: column;

@@ -36,13 +36,25 @@ function handleKey(e) {
   if (e.key === 'Escape') emit('close')
 }
 
+function handlePopState() {
+  emit('close')
+}
+
 onMounted(() => {
   document.body.style.overflow = 'hidden'
   window.addEventListener('keydown', handleKey)
+  // Push a fake history entry so the mobile back button closes the modal
+  window.history.pushState({ modal: true }, '')
+  window.addEventListener('popstate', handlePopState)
 })
 onBeforeUnmount(() => {
   document.body.style.overflow = ''
   window.removeEventListener('keydown', handleKey)
+  window.removeEventListener('popstate', handlePopState)
+  // If modal is closing from X/overlay (not from back button), remove the fake entry
+  if (window.history.state && window.history.state.modal) {
+    window.history.back()
+  }
 })
 </script>
 
