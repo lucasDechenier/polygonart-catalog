@@ -49,6 +49,39 @@ function stopAutoplay() {
   if (timer) { clearInterval(timer); timer = null }
 }
 
+/* Touch / swipe support */
+let touchStartX = 0
+let touchStartY = 0
+let isSwiping = false
+
+function onTouchStart(e) {
+  const touch = e.touches[0]
+  touchStartX = touch.clientX
+  touchStartY = touch.clientY
+  isSwiping = false
+  stopAutoplay()
+}
+function onTouchMove(e) {
+  if (!hasMultiple.value) return
+  const dx = e.touches[0].clientX - touchStartX
+  const dy = e.touches[0].clientY - touchStartY
+  // Only consider horizontal swipe if |dx| > |dy|
+  if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 10) {
+    isSwiping = true
+    e.preventDefault()
+  }
+}
+function onTouchEnd(e) {
+  if (!isSwiping) {
+    startAutoplay()
+    return
+  }
+  const dx = e.changedTouches[0].clientX - touchStartX
+  if (dx < -40) next()
+  else if (dx > 40) prev()
+  startAutoplay()
+}
+
 watch(() => [props.autoplay, props.interval, hasMultiple.value], startAutoplay)
 onMounted(startAutoplay)
 onBeforeUnmount(stopAutoplay)
@@ -74,6 +107,9 @@ const imgStyle = computed(() => ({ objectFit: props.fit }))
     :style="carouselStyle"
     @mouseenter="stopAutoplay"
     @mouseleave="startAutoplay"
+    @touchstart.passive="onTouchStart"
+    @touchmove="onTouchMove"
+    @touchend.passive="onTouchEnd"
   >
     <div v-if="!validImages.length" class="carousel__placeholder" aria-hidden="true">
       <slot name="placeholder">{{ alt.charAt(0) || '?' }}</slot>

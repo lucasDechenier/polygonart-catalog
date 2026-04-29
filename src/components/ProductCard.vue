@@ -209,8 +209,19 @@ const whatsappUrl = computed(() => {
 .product__cta:hover { background: var(--purple-800); }
 
 @media (max-width: 480px) {
-  .product__body { padding: 14px; min-height: 120px; }
-  .product__name { font-size: .95rem; }
+  .product__body { padding: 12px; min-height: auto; gap: 4px; }
+  .product__name { font-size: .85rem; }
   .product__desc { display: none; }
+  .product__footer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+  }
+  .product__price { font-size: .95rem; text-align: center; }
+  .product__cta {
+    text-align: center;
+    padding: 8px 10px;
+    font-size: .75rem;
+  }
 }
 </style>

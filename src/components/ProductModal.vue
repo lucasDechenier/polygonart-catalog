@@ -48,14 +48,13 @@ onBeforeUnmount(() => {
 
 <template>
   <div class="modal" role="dialog" aria-modal="true" :aria-label="product.titulo" @click.self="emit('close')">
-    <button class="modal__close" type="button" aria-label="Fechar" @click="emit('close')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-        <line x1="6" y1="6" x2="18" y2="18"/>
-        <line x1="18" y1="6" x2="6" y2="18"/>
-      </svg>
-    </button>
-
     <div class="modal__content" @click.stop>
+      <button class="modal__close" type="button" aria-label="Fechar" @click="emit('close')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+          <line x1="6" y1="6" x2="18" y2="18"/>
+          <line x1="18" y1="6" x2="6" y2="18"/>
+        </svg>
+      </button>
       <div class="modal__media">
         <ProductImageCarousel
           :images="product.imagens"
@@ -115,22 +114,23 @@ onBeforeUnmount(() => {
 
 .modal__close {
   position: absolute;
-  top: 20px; right: 20px;
+  top: 16px; right: 16px;
   width: 44px; height: 44px;
   border-radius: 50%;
-  background: rgba(255,255,255,.12);
+  background: rgba(15, 12, 56, .55);
   border: 1px solid rgba(255,255,255,.2);
   color: #fff;
   cursor: pointer;
   display: inline-flex;
   align-items: center; justify-content: center;
   transition: background .2s ease, transform .2s ease;
-  z-index: 2;
+  z-index: 10;
 }
-.modal__close:hover { background: rgba(255,255,255,.22); transform: rotate(90deg); }
+.modal__close:hover { background: rgba(15, 12, 56, .75); transform: rotate(90deg); }
 .modal__close svg { width: 20px; height: 20px; }
 
 .modal__content {
+  position: relative;
   width: min(1280px, 100%);
   height: min(90vh, 820px);
   background: var(--surface);
@@ -213,9 +213,21 @@ onBeforeUnmount(() => {
     border-radius: 0;
     width: 100%; height: 100%;
     max-height: 100vh;
-    grid-template-rows: 55vh 1fr;
+    grid-template-rows: auto 1fr;
+    overflow-y: auto;
   }
-  .modal__media { min-height: 0; }
-  .modal__body { padding: 28px 24px; }
+  .modal__media { min-height: 0; height: 55vw; max-height: 50vh; flex-shrink: 0; }
+  .modal__body { padding: 24px 20px 32px; }
+  .modal__close {
+    top: 12px; right: 12px;
+    width: 40px; height: 40px;
+    background: rgba(15, 12, 56, .65);
+  }
+  .modal__footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .modal__footer .btn { text-align: center; }
+  .modal__price { font-size: 1.4rem; }
 }
 </style>
