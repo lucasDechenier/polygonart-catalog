@@ -27,15 +27,18 @@ const formattedPrice = computed(() => {
 })
 
 const whatsappUrl = computed(() => {
+  const preco = props.product.preco != null
+    ? props.product.preco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+    : 'Sob consulta'
   const lines = [
-    `Olá! Tenho interesse no produto: *${props.product.titulo}*.`,
-    'Pode me passar mais informações?'
+    `Olá! Tenho interesse em um produto. 😊`,
+    ``,
+    `*Produto:* ${props.product.titulo}`,
+    `*Preço:* ${preco}`,
+    `*Ref:* #${props.product.id}`,
+    ``,
+    `Pode me passar mais informações?`
   ]
-  if (props.product.imagens && props.product.imagens.length) {
-    lines.push('')
-    lines.push('Imagem(ns):')
-    props.product.imagens.forEach((url) => lines.push(url))
-  }
   return `https://wa.me/${config.contact.whatsapp}?text=${encodeURIComponent(lines.join('\n'))}`
 })
 </script>

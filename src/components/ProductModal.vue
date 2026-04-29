@@ -20,15 +20,18 @@ const formattedPrice = computed(() => {
 })
 
 const whatsappUrl = computed(() => {
+  const preco = props.product.preco != null
+    ? props.product.preco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+    : 'Sob consulta'
   const lines = [
-    `Olá! Tenho interesse no produto: *${props.product.titulo}*.`,
-    'Pode me passar mais informações?'
+    `Olá! Tenho interesse em um produto. 😊`,
+    ``,
+    `*Produto:* ${props.product.titulo}`,
+    `*Preço:* ${preco}`,
+    `*Ref:* #${props.product.id}`,
+    ``,
+    `Pode me passar mais informações?`
   ]
-  if (props.product.imagens && props.product.imagens.length) {
-    lines.push('')
-    lines.push('Imagem(ns):')
-    props.product.imagens.forEach((url) => lines.push(url))
-  }
   return `https://wa.me/${config.contact.whatsapp}?text=${encodeURIComponent(lines.join('\n'))}`
 })
 
@@ -202,11 +205,11 @@ onBeforeUnmount(() => {
   margin-top: auto;
   padding-top: 28px;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  flex-wrap: wrap;
+  gap: 14px;
 }
+.modal__footer .btn { align-self: stretch; text-align: center; }
 .modal__price {
   font-size: 1.8rem;
   font-weight: 800;
