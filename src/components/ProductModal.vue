@@ -228,8 +228,9 @@ onBeforeUnmount(() => {
     grid-template-rows: auto 1fr;
     overflow-y: auto;
   }
-  .modal__media { min-height: 0; height: 55vw; max-height: 50vh; flex-shrink: 0; }
-  .modal__body { padding: 24px 20px 32px; }
+  .modal__media { min-height: 0; height: 70vw; max-height: 60vh; flex-shrink: 0; }
+  .modal__media :deep(.carousel__track) { inset: 16px !important; }
+  .modal__body { padding: 20px 20px 32px; }
   .modal__close {
     top: 12px; right: 12px;
     width: 40px; height: 40px;
