@@ -223,5 +223,6 @@ const whatsappUrl = computed(() => {
     padding: 8px 10px;
     font-size: .75rem;
   }
+  .product__media :deep(.carousel__arrow) { display: none; }
 }
 </style>

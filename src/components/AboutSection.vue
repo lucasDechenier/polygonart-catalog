@@ -62,7 +62,16 @@ import logoUrl from '../assets/images/logo-polygonart.jpeg'
 }
 
 .about__text p { color: var(--text-soft); font-size: 1.05rem; }
-.about__mission { font-size: 1.1rem !important; color: var(--text) !important; }
+.about__mission {
+  font-size: 1.05rem !important;
+  color: var(--purple-700) !important;
+  font-style: italic;
+  font-weight: 600;
+  line-height: 1.6;
+  border-left: 3px solid var(--accent-cyan);
+  padding-left: 16px;
+  margin-top: 1.2rem;
+}
 .features {
   list-style: none;
   padding: 24px 28px;

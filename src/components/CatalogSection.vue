@@ -119,8 +119,8 @@ function closeProduct() { selectedProduct.value = null }
 </template>
 
 <style scoped>
-.catalog { padding: 100px 0; }
-.section-header { text-align: center; margin-bottom: 48px; }
+.catalog { padding: 60px 0 100px; }
+.section-header { text-align: center; margin-bottom: 32px; }
 .section-header p { color: var(--text-soft); }
 
 .filters {
